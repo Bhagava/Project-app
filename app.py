@@ -1,10 +1,7 @@
 from flask import Flask, render_template,request, redirect, url_for
 from googletrans import Translator
-import nltk
-import nltk.data
 import spacy
-#from __future__ import unicode_literals, print_function
-#import plac
+import re
 from googleapiclient.discovery import build
 my_api_key = "AIzaSyBc40wiCnh5Wk3e8jGoeHW3DJUWzYQp4cw"
 my_cse_id = "015972826494497401252:if2nuu7ieqt"
@@ -90,8 +87,8 @@ def index():
     if request.method == 'POST':
         user = request.form['enter_a_question']
         (language_code,user) = Translate_the_query(user)
-        qwords = nltk.word_tokenize(user.replace('?', ''))
-        #questionPOS = nltk.pos_tag(qwords)
+        qwords =(user.replace('?', ''))
+        qwords=re.split('.|:|#|$|%|!|&|" " |; |, |\*|\n',qwords)
         output=''
         output=output+"The question is "+ user
         (question_type, target) = processquestion(qwords)
@@ -105,7 +102,7 @@ def index():
             li3.append(results[i]['snippet'])
         li2.append(li3)
         final_answer=combine_title_snippet(li2[0][0],li2[0][1])
-        output=output+" " +final_answer
+        #output=output+" " +final_answer
         model="en_core_web_sm"
         nlp = spacy.load(model)
         #nlp = en_core_web_sm.load()
