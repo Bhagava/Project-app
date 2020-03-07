@@ -200,5 +200,6 @@ def index():
         for i in li5:
             output=output+"  "+i
         return redirect(url_for('success',name = output))
+    return redirect(url_for('success',name = output))
 if __name__ == '__main__':
     app.run()
