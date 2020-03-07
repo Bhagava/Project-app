@@ -83,8 +83,6 @@ def combine_title_snippet(a,b):
 def index():
     if request.method == "GET":    
         return render_template("index.html")
-    else:
-        return render_template("index.html")
     
     if request.method == 'POST':
         user = request.form['enter_a_question']
