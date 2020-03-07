@@ -144,8 +144,61 @@ def index():
             output=output+"  "+i
         return redirect(url_for('success',name = output))
     else:
-        user = request.args.get('enter_a_question')
-        return redirect(url_for('success',name = user))
-
+        user = request.form['enter_a_question']
+        (language_code,user) = Translate_the_query(user)
+        qwords =(user.replace('?', ''))
+        qwords=re.split('.|:|#|$|%|!|&|" " |; |, |\*|\n',qwords)
+        output=''
+        output=output+"The question is "+ user
+        (question_type, target) = processquestion(qwords)
+        output=output+"     The answer_type is " +question_type
+        results = google_search(user, my_api_key, my_cse_id, num=1)
+        li3=[]
+        li2=[]
+        for j in range(0,len(results)):     
+            li3.append(results[j]['title'])    
+        for i in range(0,len(results)):
+            li3.append(results[i]['snippet'])
+        li2.append(li3)
+        final_answer=combine_title_snippet(li2[0][0],li2[0][1])
+        #output=output+" " +final_answer
+        model="en_core_web_sm"
+        nlp = spacy.load(model)
+        #nlp = en_core_web_sm.load()
+        doc = nlp(final_answer)
+        li5=[]
+        li4=([(X.text, X.label_) for X in doc.ents])
+        for (a,b) in li4:
+            if(question_type=='PERSON' or question_type=='MISC'):
+                if(b=='PERSON'):
+                    if a in li5:
+                        continue
+                    else:
+                        li5.append(a)
+            if(question_type=='PLACE' or question_type=='MISC'):
+                if(b=='LOC' or b=='GPE'):
+                    if a in li5:
+                        continue
+                    else:
+                        li5.append(a)
+            if(question_type=='QUANTITY' or question_type=='MISC'):
+                if(b=='CARDINAL' or b=='ORDINAL' or b=='NUMBER'):
+                    if a in li5:
+                        continue
+                    else:
+                        li5.append(a)
+            if(question_type=='TIME' or question_type=='MISC'):
+                if(b=='TIME' or b=='CARDINAL' or b=='ORDINAL' or b=='NUMBER'):
+                    if a in li5:
+                        continue
+                    else:
+                        li5.append(a)
+        if(question_type=='YESNO'):
+            li5.append('belongs to either YES or NO')
+        if (len(li5) != 0):
+            output=output+"     The predicted answer is "
+        for i in li5:
+            output=output+"  "+i
+        return redirect(url_for('success',name = output))
 if __name__ == '__main__':
     app.run()
