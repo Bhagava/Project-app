@@ -142,7 +142,6 @@ def index():
             output=output+"     The predicted answer is "
         for i in li5:
             output=output+"  "+i
-        return redirect(url_for('success',name = output))
     else:
         user = request.form['enter_a_question']
         (language_code,user) = Translate_the_query(user)
@@ -199,7 +198,6 @@ def index():
             output=output+"     The predicted answer is "
         for i in li5:
             output=output+"  "+i
-        return redirect(url_for('success',name = output))
     return redirect(url_for('success',name = output))
 if __name__ == '__main__':
     app.run()
