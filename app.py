@@ -6,19 +6,13 @@ from googleapiclient.discovery import build
 my_api_key = "AIzaSyBc40wiCnh5Wk3e8jGoeHW3DJUWzYQp4cw"
 my_cse_id = "015972826494497401252:if2nuu7ieqt"
 
-
-
 app = Flask(__name__)
-#@app.route('/')
-
-
 
 def Translate_the_query(name):
     translator=Translator()
     a=translator.detect(name).lang
     b=translator.translate(name).text
     return(a,b)
-
 
 def processquestion(qwords): 
     # Find "question word" (what, who, where, etc.)
@@ -55,8 +49,7 @@ def processquestion(qwords):
         elif target[0] in ["young", "old", "long"]:
             type = 'TIME'
             target = target[1:]
-
-    # Trim possible extra helper verb
+            
     if questionword == "which":
         target = target[1:]
     if target[0] in yesnowords:
@@ -146,7 +139,6 @@ def index():
         for i in li5:
             a=a+i
         output.append(a)
-    print(output)
     return render_template('index.html',output=output)
 
 if __name__ == '__main__':
