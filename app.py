@@ -130,7 +130,7 @@ def index():
             output.append("The predicted answer is:")
         a=''
         for i in li5:
-            a=a+i
+            a=a+"   "+i
         output.append(a)
     return render_template('index.html',output=output)
 
