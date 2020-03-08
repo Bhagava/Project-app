@@ -15,9 +15,7 @@ def Translate_the_query(name):
     return(a,b)
 
 def processquestion(qwords): 
-    # Find "question word" (what, who, where, etc.)
     yesnowords = ["can", "could", "would", "is", "does", "has", "was", "were", "had", "have", "did", "are", "will"]
-    #commonwords = ["the", "a", "an", "is", "are", "were", "."]
     questionwords = ["who", "what", "where", "when", "why", "how", "whose", "which", "whom"]
     questionword = ""
     qidx = -1
@@ -35,7 +33,6 @@ def processquestion(qwords):
     else:
         target = qwords[qidx+1:]
     type = 'MISC'
-    # Determine question type
     if questionword in ["who", "whose", "whom"]:
         type = 'PERSON'
     elif questionword == "where":
@@ -53,9 +50,7 @@ def processquestion(qwords):
     if questionword == "which":
         target = target[1:]
     if target[0] in yesnowords:
-        target = target[1:]
-    
-    # Return question data
+        target = target[1:]    
     return (type, target)
 
 
@@ -98,10 +93,8 @@ def index():
             li3.append(results[i]['snippet'])
         li2.append(li3)
         final_answer=combine_title_snippet(li2[0][0],li2[0][1])
-        #output=output+" " +final_answer
         model="en_core_web_sm"
         nlp = spacy.load(model)
-        #nlp = en_core_web_sm.load()
         doc = nlp(final_answer)
         li5=[]
         li4=([(X.text, X.label_) for X in doc.ents])
