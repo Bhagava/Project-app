@@ -22,7 +22,7 @@
     <h4 style="color:white;">Some examples of mixed-level language questions: Input: Output:</h4>
     <p style="font-weight: bold;">(Telugu+English) Input: Taj Mahal evaru nirminchaaru Output: The answer type is "PERSON", The predict answer is Jahan <br>(Hindi+English) Input: narendra modi india ke pradhaana mantree hain? Output: The answer type is "YESNO", The predict answer is belongs to YES or NO<br>(Tamil+English) Input: Eiffel Tower endha natla iruku Output: The answer type is "LOCATION or PLACE", The predict answer is Paris, Poland</p>
      <div class="container">    
-      <form action="https://final-year-app.herokuapp.com/" method = "post">
+      <form role="form" action = "/" method = "post">
          <p><input type = "text" name = "enter_a_question" class="form-control" id="url-box" placeholder="Enter a question of mixed-level language (telugu,hindi,tamil) + english" style="height: 5%; width: 75%; border-radius: 12px" style="background-color:grey;" autofocus required/></p>
          <p><input type = "submit" style="height: 5%; width: 75%; border-radius: 12px" value = "submit" /></p>
       </form>
@@ -30,6 +30,13 @@
       <p style="font-weight: bold;">The Project is totally based on NLP<br>
       Natural language processing, NLP is a branch of artificial intelligence that deals with analyzing, understanding and generating the languages that humans use naturally in order to interface with computers in both written and spoken contexts using natural human languages instead of computer languages</p>
       <p style="font-weight: bold;">The project done by <br>Eluri Venkata Sai Sampath<br>Bhavanam Venkata Sitarami Reddy<br>Mukku Phanindra Reddy<br>Mamidipaka Vidhya Sai Bhagavan<br>S.Thara(Project mentor)</p>
+      <br>
+      <div>
+      <h3>Output for the given question:</h3>
+      {% for error in output %}
+        <h4>{{ error }}</h4>
+      {% endfor %}
+      </div>
        </div>
        </div>
        </center>
