@@ -16,7 +16,7 @@ def Translate_the_query(name):
 
 def processquestion(qwords): 
     yesnowords = ["can", "could", "would", "is", "does", "has", "was", "were", "had", "have", "did", "are", "will"]
-    questionwords = ["who", "what", "where", "when", "why", "how", "whose", "which", "whom"]
+    questionwords = ["who", "what", "where", "when", "why", "total", "how", "whose", "which", "whom"]
     questionword = ""
     qidx = -1
     for (idx, word) in enumerate(qwords):
