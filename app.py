@@ -39,6 +39,8 @@ def processquestion(qwords):
         type = 'PLACE'
     elif questionword == "when":
         type = 'TIME'
+    elif questionword == "total":
+        type= 'QUANTITY'
     elif questionword == "how":
         if target[0] in ["few", "little", "much", "many"]:
             type = 'QUANTITY'
